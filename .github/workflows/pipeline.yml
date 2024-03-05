@@ -1,41 +1,37 @@
-name: Run Selenium Tests
+name: Selenium Tests
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  push
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install selenium-webdriver chromedriver mocha chai
+          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+          npm i react-draggable
+          npm i randomcolor
 
-      - name: build
+      - name: Build React App
         run: npm run build
 
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: "122.0.6261.69"
+      - name: Start Node.js Server
+        run: npm start &
 
-      - name: Start Web Server
-        run: |
-          npm start &
+      - name: Wait for Server to Start
+        run: sleep 3
 
       - name: Run Selenium Tests
-        run: npx mocha test/app.test.js --timeout 10000
+        run: npm test
