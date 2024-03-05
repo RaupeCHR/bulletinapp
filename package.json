@@ -6,17 +6,19 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "mocha": "^10.3.0",
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-scripts": "5.0.1",
+    "selenium-webdriver": "^4.18.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "npm test/app.test.js",
+    "test": "mocha ./test/app.test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

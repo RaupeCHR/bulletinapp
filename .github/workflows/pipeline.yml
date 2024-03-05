@@ -20,6 +20,8 @@ jobs:
         run: |
           npm install
           npm install selenium-webdriver chromedriver mocha chai
+          webdriver-manager
+          ./node_modules/.bin/webdriver-manager update --versions.chrome=89.0.4389.23
       - name: Build React App
         run: npm run build
 
