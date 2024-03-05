@@ -9,7 +9,7 @@ describe("add note", function() {
         options.addArguments("disable-gpu");
 
         let driver = new Builder()
-        .forBrowser('chrome')
+        .forBrowser('chrome-headless')
         .setChromeOptions(options)
         .build();
         
