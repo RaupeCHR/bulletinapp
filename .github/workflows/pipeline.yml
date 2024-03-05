@@ -1,0 +1,33 @@
+name: Selenium Tests
+
+on:
+  push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install selenium-webdriver chromedriver mocha chai
+      - name: Build React App
+        run: npm run build
+
+      - name: Start Node.js Server
+        run: npm start &
+
+      - name: Wait for Server to Start
+        run: sleep 10
+
+      - name: Run Selenium Tests
+        run: npm test
